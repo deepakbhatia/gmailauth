@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:gmailauth="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <variable name="handlers" type="com.optimalcities.gmailauthenticationapi.GmailAuthActivity.GmailConnectHandlers"/>
+
+        <variable
+            name="gmailuser"
+            type="com.optimalcities.gmailauthenticationapi.GmailUserProfileModel"/>
+        <import type="android.view.View"/>
+    </data>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            tools:context=".GmailAuthActivity">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1">
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/login_rational_dimen"
+                android:text="@string/welcome_to_appauth"
+                android:layout_margin="@dimen/activity_vertical_label_margin"
+                android:visibility="@{gmailuser.isConnected ? View.GONE:View.VISIBLE}"
+
+                android:textAppearance="?android:textAppearanceMedium"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/authorize"
+                style="@style/GmailAuthButtonStyle"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:text="@string/make_authorization_request"
+                android:background="?attr/colorAccent"
+                android:visibility="@{gmailuser.isConnected ? View.GONE:View.VISIBLE}"
+
+                android:onClick="@{handlers::onAuthorizeClick}"
+                />
+
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/signOut"
+                style="@style/GmailAuthButtonStyle"
+                android:text="@string/sign_out"
+                android:onClick="@{handlers::onSignOutClick}"
+                android:background="?attr/colorAccent"
+
+                android:visibility="@{gmailuser.isConnected ? View.VISIBLE:View.GONE}"
+                />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/profileImageView"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        style="@style/GmailAuthButtonStyle"
+                        android:id="@+id/profileImage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:visibility="@{gmailuser.isConnected ? View.VISIBLE:View.GONE}"
+                        gmailauth:imageUrl="@{gmailuser.imageUrl}"
+                        tools:src="@drawable/ic_person"/>
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/givenName"
+                        style="@style/GmailAuthTextStyleValue"
+                        android:layout_width="0dp"
+                        android:layout_weight="2"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:layout_marginStart="@dimen/activity_horizontal_margin"
+                        tools:text="@string/tools_given_name"
+                        android:visibility="@{gmailuser.isConnected ? View.VISIBLE:View.GONE}"
+                        android:text="@{gmailuser.userEmail}"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    android:layout_gravity="center_vertical"
+                    android:layout_below="@+id/profileImageView"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/fullName"
+                        style="@style/GmailAuthTextStyleValue"
+                        android:text="@{gmailuser.userFullName}"
+                        android:visibility="@{gmailuser.isConnected ? View.VISIBLE:View.GONE}"
+
+                        tools:text="@string/tools_full_name"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </layout>

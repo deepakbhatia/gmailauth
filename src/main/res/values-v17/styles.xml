@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="GmailAuthButtonStyle" parent="BaseButtonStyle">
+        <!-- Values to Support right to left languages -->
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+    </style>
+</resources>
